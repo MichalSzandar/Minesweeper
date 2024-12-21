@@ -13,8 +13,6 @@ import michal.projects.State;
 
 public class FieldButton extends Button{
     private BoardGUI grid;
-    private Image flag;
-    private Image defaultDisplay;
     private ImageView view;
     private Field field;
 
@@ -35,14 +33,6 @@ public class FieldButton extends Button{
      */
     public FieldButton(int row, int col, Board board, BoardGUI grid){
         super("");
-        //setting up flag and default images
-        flag = new Image(getClass().getResource("/images/flag.png").toExternalForm());
-        defaultDisplay = new Image(getClass().getResource("/images/minesweeper_default.png").toExternalForm());
-
-        //handling invalid image loading
-        if (flag.isError() || defaultDisplay.isError()){
-            System.out.println("Error loading flag image");
-        }
 
         this.grid = grid;
 
@@ -53,7 +43,7 @@ public class FieldButton extends Button{
         view = new ImageView();
         view.setFitHeight(50);
         view.setFitWidth(50);
-        view.setImage(defaultDisplay);
+        view.setImage(Images.getInstance().getDefault());
         setGraphic(view);
 
         this.setStyle("-fx-font-size: 18px; -fx-min-width: 50px; -fx-min-height: 50px; -fx-max-width: 50px; -fx-max-height: 50px;");
@@ -67,9 +57,10 @@ public class FieldButton extends Button{
                 } else if(event.getButton().equals(MouseButton.SECONDARY)){
                     if(field.getState().equals(State.MARKED)){
                         field.setState(State.HIDDEN);
-                        setGraphic(null);
+                        view.setImage(Images.getInstance().getDefault());
+                        setGraphic(view);
                     } else{
-                        view.setImage(flag);
+                        view.setImage(Images.getInstance().getFlagImage());
                         setGraphic(view);
                         field.setState(State.MARKED);
                     }       

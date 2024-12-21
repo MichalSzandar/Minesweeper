@@ -57,7 +57,7 @@ public class GameStartup {
             String difficulty = difficultyComboBox.getValue();
 
             // Open new window with game configuration
-            new Game(rows, columns, difficulty);
+            new Game(columns, rows, difficulty);
         });
 
         // Show setup scene
