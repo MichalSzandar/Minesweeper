@@ -155,7 +155,7 @@ public class Board {
                 int nextCol = cur[0] + dir[0];
                 int nextRow = cur[1] + dir[1];
 
-                if (checkIfOutOfBounds(nextCol, nextRow)) {
+                if (checkIfOutOfBounds(nextRow, nextCol)) {
                     continue;
                 }
 
