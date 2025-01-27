@@ -7,24 +7,28 @@ import michal.projects.Board;
 
 public class BoardGUI extends GridPane {
     /**
-     * initializes BoardGUI object 
+     * initializes BoardGUI object.
      * @param board - Board object responsible for logic
      */
-    public BoardGUI(Board board){
+    public BoardGUI(final Board board) {
         super();
 
         this.setAlignment(Pos.CENTER);
 
-        for(int i = 0; i < board.getRows(); i++){
-            for(int j = 0; j < board.getCols(); j++){
-                add(new FieldButton(i, j, board, this), i, j);
+        for (int i = 0; i < board.getRows(); i++) {
+            for (int j = 0; j < board.getCols(); j++) {
+                add(new FieldButton(i, j, board, this), j, i);
             }
         }
     }
 
-    public void disableButtons(){
-        for(Node node : getChildren()){
-            FieldButton btn = (FieldButton)node;
+    /**
+     * method to disable all FieldButton objects.
+     * @see FieldButton
+     */
+    public void disableButtons() {
+        for (Node node : getChildren()) {
+            FieldButton btn = (FieldButton) node;
             btn.setOnMouseClicked(null);
         }
     }

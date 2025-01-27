@@ -13,20 +13,20 @@ import javafx.stage.Stage;
 
 public class GameStartup {
     /**
-     * opens new window responsible for selecting parameters for the game
+     * opens new window responsible for selecting parameters for the game.
      * @param primaryStage - stage to show new window
      */
-    public GameStartup(Stage primaryStage){
+    public GameStartup(final Stage primaryStage) {
         primaryStage.setTitle("Game Setup");
 
         // Create UI elements
         Label rowsLabel = new Label("Rows:");
         Spinner<Integer> rowsSpinner = new Spinner<>();
-        rowsSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 50, 10));
+        rowsSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(5, 25, 10));
 
         Label columnsLabel = new Label("Columns:");
         Spinner<Integer> columnsSpinner = new Spinner<>();
-        columnsSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 50, 10));
+        columnsSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(5, 25, 10));
 
         Label difficultyLabel = new Label("Difficulty:");
         ComboBox<String> difficultyComboBox = new ComboBox<>();
@@ -57,7 +57,7 @@ public class GameStartup {
             String difficulty = difficultyComboBox.getValue();
 
             // Open new window with game configuration
-            new Game(columns, rows, difficulty);
+            new Game(rows, columns, difficulty);
         });
 
         // Show setup scene
@@ -65,5 +65,5 @@ public class GameStartup {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-    
 }
+

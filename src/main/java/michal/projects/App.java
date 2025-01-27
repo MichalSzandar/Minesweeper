@@ -8,22 +8,24 @@ import michal.projects.gui.StringToImageConverter;
 
 
 /**
- * JavaFX App
+ * JavaFX App.
  */
 public class App extends Application {
-    
+
     @SuppressWarnings("exports")
     @Override
-    public void start(Stage primaryStage) {
-         // Main setup window
+    public final void start(final Stage primaryStage) {
+        // Main setup window
+        Images.configureImages();
         StringToImageConverter.getInstance();
-        Images.getInstance();
         new GameStartup(primaryStage);
     }
 
-    public static void main(String[] args) {
+    /**
+     * main method to start the app.
+     * @param args
+     */
+    public static void main(final String[] args) {
         launch();
     }
-
-
 }

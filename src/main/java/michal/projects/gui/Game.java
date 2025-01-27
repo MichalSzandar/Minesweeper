@@ -17,26 +17,32 @@ import michal.projects.GameState;
 
 
 public class Game {
+    /**Board object on which the game is played. */
     private Board board;
+    /**GridPane on which fields are displayed. */
     private BoardGUI grid;
+    /**map difficulty with number of bombs. */
     private HashMap<String, Integer> difficultyMap;
-    private int elapsedSeconds = 0; // Tracks the number of seconds elapsed
-    private Label timerLabel; // Label to display the timer
-    private Timeline timeline; // Timer update mechanism
-    
+    /**Tracks the number of elapsed seconds. */
+    private int elapsedSeconds = 0;
+    /**Label to display the timer. */
+    private Label timerLabel;
+    /**Timer update mechanism. */
+    private Timeline timeline;
+
     /**
-     * displays new window with main minesweeper board
+     * displays new window with main minesweeper board.
      * @param rows - number of rows on the board
      * @param cols - number of columns on the board
      * @param difficulty - defines game difficult
      */
-    public Game(int rows, int cols, String difficulty){
-        Stage stage = new Stage();          
+    public Game(final int rows, final int cols, final String difficulty) {
+        Stage stage = new Stage();
 
         difficultyMap = new HashMap<>();
-        difficultyMap.put("Easy", rows*cols/10 + 1);
-        difficultyMap.put("Medium", rows*cols/5 + 1);
-        difficultyMap.put("Hard", rows*cols/3 + 1);
+        difficultyMap.put("Easy", rows * cols / 10 + 1);
+        difficultyMap.put("Medium", rows * cols / 5 + 1);
+        difficultyMap.put("Hard", rows * cols / 3 + 1);
 
         board = new Board(rows, cols, difficultyMap.get(difficulty));
 
@@ -52,32 +58,32 @@ public class Game {
         root.setAlignment(Pos.CENTER);
         root.getChildren().addAll(timerLabel, grid);
 
-        Scene scene = new Scene(root, 300, 400);
+        Scene scene = new Scene(root, 60 * cols, 60 * rows);
         stage.setScene(scene);
         stage.show();
-        //Alerts.displayLoseMessage();
     }
 
     private void startTimer() {
         // Initialize the Timeline to update every second
         timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-            if(board.getState() != GameState.CONTINUES){
+            if (board.getState() != GameState.CONTINUES) {
                 timeline.stop();
                 finishGame();
             }
             elapsedSeconds++;
             timerLabel.setText("Time: " + elapsedSeconds + "s");
         }));
-        timeline.setCycleCount(Timeline.INDEFINITE); // Repeat indefinitely
-        timeline.play(); // Start the timeline
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
     }
 
-    private void finishGame(){
-        if(board.getState() == GameState.WON){
-            Platform.runLater(Alerts::displayWinMessage);
-        }else{
+    private void finishGame() {
+        if (board.getState() == GameState.WON) {
+            Platform.runLater(() ->
+                Alerts.displayWinMessage(timerLabel.getText()));
+        } else {
             Platform.runLater(Alerts::displayLoseMessage);
         }
-        grid.disableButtons();   
+        grid.disableButtons();
     }
 }

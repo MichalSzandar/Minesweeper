@@ -11,59 +11,63 @@ import michal.projects.Board;
 import michal.projects.Field;
 import michal.projects.State;
 
-public class FieldButton extends Button{
+public class FieldButton extends Button {
+    /**parent object. */
     private BoardGUI grid;
+    /**defines what is displayed on button. */
     private ImageView view;
+    /**Field object that corresponds to this button.*/
     private Field field;
 
     /**
-     * returns Field object that is in the same row and column as this button
+     * returns Field object that is in the same row and column as this button.
      * @return corresponding Field object
      */
-    public Field getCorrespondingField(){
+    public Field getCorrespondingField() {
         return field;
     }
 
     /**
-     * initializes FieldButton object 
+     * initializes FieldButton object .
      * @param row - index of row of corresponding Field object
      * @param col - index of column of corresponding Field object
      * @param board - board containing corresponding Field object
      * @param grid - BoardGUI object containing this button
      */
-    public FieldButton(int row, int col, Board board, BoardGUI grid){
+    public FieldButton(final int row, final int col, final Board board, final BoardGUI grid) {
         super("");
 
         this.grid = grid;
 
-        //setting up corresponding Field object
+        // setting up corresponding Field object
         field = board.getField(row, col);
 
-        //setting up default ImageView
+        // setting up default ImageView
         view = new ImageView();
         view.setFitHeight(50);
         view.setFitWidth(50);
-        view.setImage(Images.getInstance().getDefault());
+        view.setImage(Images.getDefault());
         setGraphic(view);
 
-        this.setStyle("-fx-font-size: 18px; -fx-min-width: 50px; -fx-min-height: 50px; -fx-max-width: 50px; -fx-max-height: 50px;");
+        this.setStyle(
+                "-fx-font-size: 18px; -fx-min-width: 50px; -fx-min-height: 50px; -fx-max-width: 50px; -fx-max-height: 50px;");
         this.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event){
-                if(event.getButton().equals(MouseButton.PRIMARY) && field.getState().equals(State.HIDDEN)){
+            public void handle(final MouseEvent event) {
+                if (event.getButton().equals(MouseButton.PRIMARY) && field.getState().equals(State.HIDDEN)) {
                     board.reveal(row, col);
-                } else if(event.getButton().equals(MouseButton.PRIMARY)){
+                } else if (event.getButton().equals(MouseButton.PRIMARY)) {
                     board.revealNearby(row, col);
-                } else if(event.getButton().equals(MouseButton.SECONDARY)){
-                    if(field.getState().equals(State.MARKED)){
+                } else if (event.getButton().equals(MouseButton.SECONDARY)) {
+                    if (field.getState().equals(State.MARKED)) {
                         field.setState(State.HIDDEN);
-                        view.setImage(Images.getInstance().getDefault());
+                        view.setImage(Images.getDefault());
                         setGraphic(view);
-                    } else{
-                        view.setImage(Images.getInstance().getFlagImage());
+                    } else {
+                        view.setImage(Images.getFlagImage());
                         setGraphic(view);
                         field.setState(State.MARKED);
-                    }       
+                    }
                 }
                 refreshGrid();
             }
@@ -71,23 +75,24 @@ public class FieldButton extends Button{
     }
 
     /**
-     * sets image displayed on this button
+     * sets image displayed on this button.
      * @param image - image to display
      */
-    public void setImage(Image image){
+    public void setImage(final Image image) {
         view.setImage(image);
         setGraphic(view);
     }
 
     /**
-     * refreshes parent grid
+     * refreshes parent grid.
      */
-    private void refreshGrid(){
-        for(Node node : grid.getChildren()){
-            FieldButton btn = (FieldButton)node;
+    private void refreshGrid() {
+        for (Node node : grid.getChildren()) {
+            FieldButton btn = (FieldButton) node;
             String txt = btn.getCorrespondingField().getDisplay();
-            if(txt!=""){
-                Image display = StringToImageConverter.getInstance().getImage(txt);
+            if (txt != "") {
+                Image display =
+                    StringToImageConverter.getInstance().getImage(txt);
                 btn.setImage(display);
             }
         }

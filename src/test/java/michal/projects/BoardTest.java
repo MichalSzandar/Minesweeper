@@ -10,14 +10,14 @@ public class BoardTest {
     private Field mid;
 
     @Before
-    public void setup(){
+    public void setup() {
         board = new Board(3, 3, 0);
         mid = board.getField(1, 1);
     }
 
     @Test
-    public void testCountBombs(){
-        for(int i = 0; i<8; i++){
+    public void testCountBombs() {
+        for(int i = 0; i<8; i++) {
             mid.setState(State.HIDDEN);
             board.getField(1 + board.getDir(i)[0], 1 + board.getDir(i)[1]).setBomb();
             board.reveal(1, 1);
@@ -26,7 +26,7 @@ public class BoardTest {
     }
 
     @Test
-    public void testReavealNearbySuccess(){
+    public void testReavealNearbySuccess() {
         mid.setBomb();
         mid.setState(State.MARKED);
         board.reveal(0, 1);
@@ -42,7 +42,7 @@ public class BoardTest {
     }
 
     @Test
-    public void testRevealNearbyFailure(){
+    public void testRevealNearbyFailure() {
         mid.setBomb();
         board.getField(1,0).setState(State.MARKED);
 
@@ -53,7 +53,7 @@ public class BoardTest {
     }
 
     @Test
-    public void testRevealSuccess(){
+    public void testRevealSuccess() {
         board.getField(0, 2).setBomb();
         board.reveal(2, 0);
 
