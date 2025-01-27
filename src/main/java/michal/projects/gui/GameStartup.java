@@ -22,7 +22,7 @@ public class GameStartup {
         // Create UI elements
         Label rowsLabel = new Label("Rows:");
         Spinner<Integer> rowsSpinner = new Spinner<>();
-        rowsSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(5, 25, 10));
+        rowsSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(5, 20, 10));
 
         Label columnsLabel = new Label("Columns:");
         Spinner<Integer> columnsSpinner = new Spinner<>();
