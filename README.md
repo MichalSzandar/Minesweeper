@@ -24,8 +24,8 @@ Before running the application, ensure you have the following installed:
 
 1. **Clone the Repository**:
    ```bash
-   git clone <repository_url>
-   cd paint-application
+   git clone MichalSzandar/Minesweeper
+   cd Minesweeper
    ```
 
 2. **Download JavaFX SDK**:
